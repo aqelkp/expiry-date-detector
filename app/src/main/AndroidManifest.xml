@@ -3,6 +3,7 @@
     package="in.sibin.expirydate">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScannerActivity"></activity>
+        <activity android:name=".ScannerActivity" />
+        <activity android:name=".AddEntryActivity" />
+        <activity android:name=".GetEntryActivity" />
+
+        <service
+            android:name=".ShowNotification"
+            android:exported="false"></service>
     </application>
 
 </manifest>

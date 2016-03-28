@@ -13,13 +13,14 @@
     tools:context="in.sibin.expirydate.MainActivity">
 
     <Button
-        android:text="ADD ENTRY"
+        android:text="ADD PRODUCT"
         style="@style/button_main_activity"
         android:onClick="addEntry"
         />
 
     <Button
-        android:text="CHECK ENTRY"
+        android:text="CHECK PRODUCT"
         style="@style/button_main_activity"
+        android:onClick="getEntry"
         />
 </LinearLayout>
