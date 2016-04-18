@@ -1,3 +1,7 @@
 <resources>
+    <!--<string name="app_name">Saarang ID scanner</string>-->
     <string name="app_name">Remember me</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

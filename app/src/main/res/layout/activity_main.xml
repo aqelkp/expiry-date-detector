@@ -23,4 +23,17 @@
         style="@style/button_main_activity"
         android:onClick="getEntry"
         />
+
+
+    <Button
+        android:text="BILLS"
+        style="@style/button_main_activity"
+        android:onClick="saveBill"
+        />
+
+    <Button
+        android:text="SIGN OUT"
+        style="@style/button_main_activity"
+        android:onClick="signOut"
+        />
 </LinearLayout>

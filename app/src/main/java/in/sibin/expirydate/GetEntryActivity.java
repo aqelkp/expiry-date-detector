@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -57,6 +58,11 @@ public class GetEntryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
+                if (!dataSnapshot.exists()){
+                    Toast.makeText(context, "No entry found", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 Log.d("Product", dataSnapshot.getValue().toString());
                 product = dataSnapshot.getValue(Product.class);
                 tvName.setText(product.getName());
@@ -80,10 +86,36 @@ public class GetEntryActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(context)
                 .setTitle("Set reminder")
-                .setMessage("Are you sure you want to delete this entry?")
+                .setMessage("Are you sure you want to set a reminder for this product?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
+                        Log.d("GetEntry", product.getName());
+
+                        long oneDay = 1000 * 60 * 60 * 24;
+                        long threeDay = 3 * oneDay;
+                        long fifteenDays = 15 * oneDay;
+
+                        Intent intent = new Intent(context, ShowNotification.class);
+                        intent.putExtra(ShowNotification.PRODUCT_NAME, product.getName());
+                        intent.putExtra(ShowNotification.DAYS_REMAINING, "one");
+                        PendingIntent pintent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        alarm.set(AlarmManager.RTC_WAKEUP, product.getDate() - oneDay , pintent);
+
+//                        Intent intent1 = new Intent(context, ShowNotificationThree.class);
+//                        intent1.putExtra(ShowNotification.PRODUCT_NAME, product.getName());
+//                        intent.putExtra(ShowNotification.DAYS_REMAINING, "three");
+//                        PendingIntent pintent1 = PendingIntent.getService(context, 1, intent1, PendingIntent.FLAG_ONE_SHOT);
+//                        AlarmManager alarm1 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                        alarm1.set(AlarmManager.RTC_WAKEUP, product.getDate() - threeDay , pintent1);
+//
+////                        Intent intent2 = new Intent(context, ShowNotification.class);
+////                        intent2.putExtra(ShowNotification.PRODUCT_NAME, product.getName());
+////                        intent2.putExtra(ShowNotification.DAYS_REMAINING, "fifteen");
+////                        PendingIntent pintent2 = PendingIntent.getService(context, 2, intent2, PendingIntent.FLAG_ONE_SHOT);
+////                        AlarmManager alarm2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+////                        alarm2.set(AlarmManager.RTC_WAKEUP, product.getDate() - fifteenDays , pintent2);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -94,16 +126,7 @@ public class GetEntryActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
-        Log.d("GetEntry", product.getName());
 
-        Intent intent = new Intent(this, ShowNotification.class);
-        intent.putExtra(ShowNotification.PRODUCT_NAME, product.getName());
-        PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
-
-        long oneDay = 1000 * 60 * 60 * 24;
-
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm.set(AlarmManager.RTC_WAKEUP, product.getDate() - oneDay , pintent);
 
     }
 

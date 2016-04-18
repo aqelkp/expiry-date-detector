@@ -6,13 +6,12 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.util.Log;
 
-public class ShowNotification extends IntentService {
+public class ShowNotificationThree extends IntentService {
 
     public static String PRODUCT_NAME = "product_name";
-    public static String DAYS_REMAINING = "days";
     private static String LOG_TAG = "ShowNotification";
 
-    public ShowNotification() {
+    public ShowNotificationThree() {
         super("ShowNotification");
     }
 
@@ -23,8 +22,7 @@ public class ShowNotification extends IntentService {
 
         Notification n  = new Notification.Builder(this)
                 .setContentTitle("Product expiring")
-                .setContentText(intent.getExtras().getString(PRODUCT_NAME) + " will expire after "
-                        + intent.getExtras().getString(DAYS_REMAINING) + " day.")
+                .setContentText(intent.getExtras().getString(PRODUCT_NAME) + " will expire after three days.")
                 .setSmallIcon(R.mipmap.ic_launcher)
 //                .setContentIntent(pIntent)
                 .setAutoCancel(true)
