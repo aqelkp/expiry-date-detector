@@ -34,7 +34,6 @@
             android:name=".ShowNotificationThree"
             android:exported="false" />
 
-        <activity android:name=".NihalActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".BillsActivity" />
         <activity android:name=".NewBillActivity"></activity>
